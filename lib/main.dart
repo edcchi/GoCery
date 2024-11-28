@@ -34,7 +34,25 @@ class GoCeryApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'GoCery',
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const ItemSelectWidget(),
+      //home: const SplashScreen(),
+      initialRoute: '/',
+      routes: {
+      '/':(context) => const SplashScreen(),
+      '/Onboarding': (context) => OnboardingScreen(),
+      '/Login': (context) => LoginWidget(),       
+      '/SignUp': (context) => SignUpWidget(),
+      '/Dashboard': (context) => DashboardWidget(),
+      '/Category': (context) => CategoryWidget(),
+      '/SelectCat': (context) => SelectCategoryWidget(),
+      '/ItemSelect': (context) => ItemSelectWidget(),
+      '/Cart': (context) => CartWidget(),
+      '/Deliver': (context) => OutforDeliveryWidget(),
+      '/OrderDelivered': (context) => OrderDeliveredWidget(),
+      '/Rate': (context) => RateWidget(),
+      '/Report': (context) => ReportWidget(),      
+      '/OrderHistory': (context) => OrderHistoryWidget(),    
+      '/Profile': (context) => ProfileWidget(),           
+      },
     );
   }
 }
@@ -47,10 +65,11 @@ class SplashScreen extends StatelessWidget {
     // Navigate to another screen after a few seconds
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 3), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const OnboardingWidget()),
-        );
+        Navigator.pushReplacementNamed(context, '/Onboarding');
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) =>  OnboardingScreen()),
+        // );
       });
     });
 

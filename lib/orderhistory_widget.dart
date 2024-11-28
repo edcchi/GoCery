@@ -46,6 +46,10 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
                           child: Container(
                             width: 35,
                             height: 35,
@@ -75,6 +79,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                               ],
                             ),
                           ),
+                        ),
                         ),
                         Text(
                           'Order History',
@@ -138,7 +143,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                           child: ElevatedButton(
                             onPressed: () {
-                              print('Order Now Button pressed ...');
+                              Navigator.pushNamed(context, '/Category');
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFA4D88D),
@@ -180,28 +185,28 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
               children: [
                 IconButton(
                   onPressed: () {
-                    print("Home button pressed");
+                    Navigator.pushNamed(context, '/Dashboard');
                   },
                   icon: Icon(Icons.home_rounded,
                       color: Color(0xFF58EE16), size: 37),
                 ),
                 IconButton(
                   onPressed: () {
-                    print("Notifications button pressed");
+                    Navigator.pushNamed(context, '/OrderHistory');
                   },
                   icon: Icon(Icons.notifications_sharp,
                       color: Color(0xFFA4D88D), size: 37),
                 ),
                 IconButton(
                   onPressed: () {
-                    print("Shopping basket button pressed");
+                    Navigator.pushNamed(context, '/Cart');
                   },
                   icon: Icon(Icons.shopping_basket,
                       color: Color(0xFFA4D88D), size: 37),
                 ),
                 IconButton(
                   onPressed: () {
-                    print("Profile button pressed");
+                    Navigator.pushNamed(context, '/Profile');
                   },
                   icon: Icon(Icons.face_6, color: Color(0xFFA4D88D), size: 37),
                 ),

@@ -56,6 +56,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.pushNamed(context, '/Dashboard');
+                          } ,
                         child: Container(
                           width: 44,
                           height: 44,
@@ -86,6 +90,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ],
                           ),
                         ),
+                      ),
                       ),
                     ],
                   ),
@@ -260,7 +265,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          print('Button pressed ...');
+                          Navigator.pushNamed(context, '/Login');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(

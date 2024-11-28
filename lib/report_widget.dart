@@ -101,7 +101,7 @@ class _ReportWidgetState extends State<ReportWidget> {
                   padding: const EdgeInsets.all(4),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Submit pressed');
+                      Navigator.pushNamed(context, '/Dashboard');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFA4D88D),
@@ -125,7 +125,7 @@ class _ReportWidgetState extends State<ReportWidget> {
                   padding: const EdgeInsets.all(4),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Cancel pressed');
+                      Navigator.pushNamed(context, '/Dashboard');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFD9D9D9),

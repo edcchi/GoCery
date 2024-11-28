@@ -71,13 +71,15 @@ class _RateWidgetState extends State<RateWidget> {
                   // Your feedback and buttons go here
                   const Padding(
                     padding: EdgeInsets.all(12),
-                    child: Text('Write your feedback here'),
+                    //child: Text('Write your feedback here'),
                   ),
                   // Submit and Close buttons
                   Padding(
                     padding: const EdgeInsets.all(4),
                     child: ElevatedButton(
-                      onPressed: () => print('Submit pressed'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/Dashboard');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFA4D88D),
                         minimumSize: const Size(220, 40),
@@ -94,7 +96,9 @@ class _RateWidgetState extends State<RateWidget> {
                   Padding(
                     padding: const EdgeInsets.all(4),
                     child: ElevatedButton(
-                      onPressed: () => print('Close pressed'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/Dashboard');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
                         minimumSize: const Size(220, 40),

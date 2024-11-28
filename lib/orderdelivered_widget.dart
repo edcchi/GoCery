@@ -80,7 +80,7 @@ class _OrderDeliveredWidgetState extends State<OrderDeliveredWidget> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        print('Rate Button pressed ...');
+                        Navigator.pushNamed(context, '/Rate');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -114,7 +114,7 @@ class _OrderDeliveredWidgetState extends State<OrderDeliveredWidget> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        print('Report Button pressed ...');
+                        Navigator.pushNamed(context, '/Report');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -155,7 +155,7 @@ class _OrderDeliveredWidgetState extends State<OrderDeliveredWidget> {
                   padding: EdgeInsets.all(4),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Done Button pressed ...');
+                      Navigator.pushNamed(context, '/Dashboard');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFA4D88D),

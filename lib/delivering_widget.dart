@@ -118,7 +118,7 @@ class _OutforDeliveryWidgetState extends State<OutforDeliveryWidget> {
   padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),
   child: ElevatedButton(
     onPressed: () {
-      print('Button pressed ...');
+      Navigator.pushNamed(context, '/OrderDelivered');
     },
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.black, // Button background color
@@ -144,7 +144,7 @@ class _OutforDeliveryWidgetState extends State<OutforDeliveryWidget> {
 // Close Button
 ElevatedButton(
   onPressed: () {
-    print('Button pressed ...');
+    Navigator.pushNamed(context, '/Dashboard');
   },
   style: ElevatedButton.styleFrom(
     backgroundColor: const Color(0xFFD9D9D9), // Button background color

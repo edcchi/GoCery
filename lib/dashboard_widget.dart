@@ -220,18 +220,22 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(160, 21, 0, 0),
-                        child: Text(
-                          'View more',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontFamily: 'Readex Pro',
-                                    color: Color(0xFF969696),
-                                    fontSize: 12,
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ),
+        padding: EdgeInsetsDirectional.fromSTEB(160, 21, 0, 0),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/Category'); // Use pushNamed
+          },
+          child: Text(
+            'View more',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontFamily: 'Readex Pro',
+                  color: Color(0xFF969696),
+                  fontSize: 12,
+                  letterSpacing: 0.0,
+                ),
+          ),
+        ),
+      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(7, 22, 0, 0),
                         child: ClipRRect(
@@ -707,21 +711,21 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 ),
                 IconButton(
                   onPressed: () {
-                    print("Notifications button pressed");
+                    Navigator.pushNamed(context, '/OrderHistory');
                   },
                   icon: Icon(Icons.notifications_sharp,
                       color: Color(0xFFA4D88D), size: 37),
                 ),
                 IconButton(
                   onPressed: () {
-                    print("Shopping basket button pressed");
+                    Navigator.pushNamed(context, '/Cart');
                   },
                   icon: Icon(Icons.shopping_basket,
                       color: Color(0xFFA4D88D), size: 37),
                 ),
                 IconButton(
                   onPressed: () {
-                    print("Profile button pressed");
+                    Navigator.pushNamed(context, '/Profile');
                   },
                   icon: Icon(Icons.face_6, color: Color(0xFFA4D88D), size: 37),
                 ),

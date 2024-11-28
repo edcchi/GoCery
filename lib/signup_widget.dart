@@ -64,7 +64,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 children: [
                   const SizedBox(height: 25),
                   InkWell(
-                    onTap: () => Navigator.pushNamed(context, 'Login'),
+                    onTap: (){
+                    //onTap: () => Navigator.pushNamed(context, '/Login'),
+                    Navigator.pop(context);
+                    },
                     child: Container(
                       width: 44,
                       height: 44,
@@ -124,7 +127,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   const SizedBox(height: 28),
                   ElevatedButton(
                     onPressed: () {
-                      print('Sign Up Button Pressed');
+                      Navigator.pushNamed(context, '/Login');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
@@ -146,7 +149,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       const Text('Have an Account?'),
                       const SizedBox(width: 10),
                       GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, 'Login'),
+                        onTap: () => Navigator.pushNamed(context, '/Login'),
                         child: const Text(
                           'Log In',
                           style: TextStyle(

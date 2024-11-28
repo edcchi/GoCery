@@ -58,6 +58,9 @@ class _SelectCategoryWidgetState extends State<SelectCategoryWidget> {
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
+                                  child: InkWell(
+                                    onTap: () { Navigator.pop(context);
+                                  },
                               child: Container(
                                 width: 35,
                                 height: 35,
@@ -96,9 +99,10 @@ class _SelectCategoryWidgetState extends State<SelectCategoryWidget> {
                                   ],
                                 ),
                               ),
+                                  ),
                             ),
                             Text(
-                              'Order History',
+                              'Snacks',
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 28,
@@ -857,6 +861,10 @@ class _SelectCategoryWidgetState extends State<SelectCategoryWidget> {
                                             topRight: Radius.circular(20),
                                           ),
                                         ),
+                                        child: InkWell(
+                                          onTap: (){
+                                            Navigator.pushNamed(context, '/ItemSelect');
+                                          },
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(0),
@@ -870,6 +878,7 @@ class _SelectCategoryWidgetState extends State<SelectCategoryWidget> {
                                             height: 20,
                                             fit: BoxFit.cover,
                                           ),
+                                        ),
                                         ),
                                       ),
                                     ],

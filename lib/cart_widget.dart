@@ -46,9 +46,9 @@ class _CartWidgetState extends State<CartWidget> {
                   icon: Icon(Icons.chevron_left_rounded,
                   color: Colors.black,),
                   onPressed: () {
-                    print("Back button pressed");
+                    Navigator.pop(context);
                   },
-                ),
+                ),  
                 Text(
                   "Cart",
                   style: TextStyle(
@@ -273,7 +273,7 @@ class _CartWidgetState extends State<CartWidget> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  print("Place Order Button Pressed");
+                  Navigator.pushNamed(context, '/Deliver');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF66C28E),

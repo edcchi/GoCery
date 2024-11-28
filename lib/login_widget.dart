@@ -151,8 +151,7 @@ void dispose() {
                   // Login Button
                   ElevatedButton(
                     onPressed: () {
-                      // Handle login
-
+                      Navigator.pushNamed(context, '/Dashboard');
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 27),
