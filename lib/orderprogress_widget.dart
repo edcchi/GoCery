@@ -41,7 +41,7 @@ class _OrderinProgressWidgetState extends State<OrderinProgressWidget> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: const Color(0xFFF2FCEE),
+        backgroundColor: Color(0xFFF2FCEE),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -62,7 +62,7 @@ class _OrderinProgressWidgetState extends State<OrderinProgressWidget> {
                     Row(
                       children: [
                         Icon(Icons.location_on_outlined,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.black,
                             size: 30),
                         const SizedBox(width: 10),
                         Column(
@@ -88,12 +88,12 @@ class _OrderinProgressWidgetState extends State<OrderinProgressWidget> {
                         ),
                       ],
                     ),
-                    const Divider(thickness: 2),
+                    const Divider(thickness: 2, color: Colors.grey),
                     const SizedBox(height: 10),
                     Row(
                       children: [
                         Icon(Icons.access_time_sharp,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.black,
                             size: 30),
                         const SizedBox(width: 10),
                         Column(
@@ -119,13 +119,13 @@ class _OrderinProgressWidgetState extends State<OrderinProgressWidget> {
                         ),
                       ],
                     ),
-                    const Divider(thickness: 2),
+                    const Divider(thickness: 2, color: Colors.grey),
                     const SizedBox(height: 10),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Icon(Icons.description_rounded,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.black,
                             size: 30),
                         const SizedBox(width: 10),
                         Expanded(
@@ -135,6 +135,7 @@ class _OrderinProgressWidgetState extends State<OrderinProgressWidget> {
                               Text(
                                 'Order Summary',
                                 style: TextStyle(
+                                  color: Colors.black,
                                   fontFamily: 'Readex Pro',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -166,7 +167,7 @@ class _OrderinProgressWidgetState extends State<OrderinProgressWidget> {
                           foregroundColor: const Color(0xFF3C3D3E),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 10),
-                          minimumSize: const Size(200, 40),
+                          minimumSize: const Size(200, 60),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

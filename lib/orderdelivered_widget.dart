@@ -160,7 +160,7 @@ class _OrderDeliveredWidgetState extends State<OrderDeliveredWidget> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFA4D88D),
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                       minimumSize: Size(220, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
