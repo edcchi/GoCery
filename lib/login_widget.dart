@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_app/services/auth_service.dart';
 
 import 'login_model.dart';
 export 'login_model.dart';
@@ -14,19 +15,19 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   late LoginModel _model;
+  final AuthService _authService = AuthService();
 
- @override
-void initState() {
-  super.initState();
-  _model = LoginModel()..initialize();
-}
+  @override
+  void initState() {
+    super.initState();
+    _model = LoginModel();
+  }
 
- @override
-void dispose() {
-  _model.dispose();
-  super.dispose();
-}
-
+  @override
+  void dispose() {
+    _model.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +151,10 @@ void dispose() {
 
                   // Login Button
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      _authService.login(
+                          email: _model.textController1.text,
+                          password: _model.textController2.text);
                       Navigator.pushNamed(context, '/Dashboard');
                     },
                     style: ElevatedButton.styleFrom(
@@ -163,7 +167,8 @@ void dispose() {
                     child: const Center(
                       child: Text(
                         'Log In',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),

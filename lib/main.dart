@@ -20,8 +20,13 @@ import 'package:grocery_app/report_widget.dart';
 import 'package:grocery_app/reportsent_widget.dart';
 import 'package:grocery_app/selectcat_widget.dart';
 import 'package:grocery_app/signup_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const GoCeryApp());
 }
 
@@ -37,21 +42,21 @@ class GoCeryApp extends StatelessWidget {
       //home: const SplashScreen(),
       initialRoute: '/',
       routes: {
-      '/':(context) => const SplashScreen(),
-      '/Onboarding': (context) => OnboardingScreen(),
-      '/Login': (context) => LoginWidget(),       
-      '/SignUp': (context) => SignUpWidget(),
-      '/Dashboard': (context) => DashboardWidget(),
-      '/Category': (context) => CategoryWidget(),
-      '/SelectCat': (context) => SelectCategoryWidget(),
-      '/ItemSelect': (context) => ItemSelectWidget(),
-      '/Cart': (context) => CartWidget(),
-      '/Deliver': (context) => OutforDeliveryWidget(),
-      '/OrderDelivered': (context) => OrderDeliveredWidget(),
-      '/Rate': (context) => RateWidget(),
-      '/Report': (context) => ReportWidget(),      
-      '/OrderHistory': (context) => OrderHistoryWidget(),    
-      '/Profile': (context) => ProfileWidget(),           
+        '/': (context) => const SplashScreen(),
+        '/Onboarding': (context) => OnboardingScreen(),
+        '/Login': (context) => LoginWidget(),
+        '/SignUp': (context) => SignUpWidget(),
+        '/Dashboard': (context) => DashboardWidget(),
+        '/Category': (context) => CategoryWidget(),
+        '/SelectCat': (context) => SelectCategoryWidget(),
+        '/ItemSelect': (context) => ItemSelectWidget(),
+        '/Cart': (context) => CartWidget(),
+        '/Deliver': (context) => OutforDeliveryWidget(),
+        '/OrderDelivered': (context) => OrderDeliveredWidget(),
+        '/Rate': (context) => RateWidget(),
+        '/Report': (context) => ReportWidget(),
+        '/OrderHistory': (context) => OrderHistoryWidget(),
+        '/Profile': (context) => ProfileWidget(),
       },
     );
   }

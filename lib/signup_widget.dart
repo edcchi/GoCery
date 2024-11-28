@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_app/services/auth_service.dart';
 
 import 'signup_model.dart';
 export 'signup_model.dart';
@@ -13,38 +14,18 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends State<SignUpWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  late TextEditingController textController1;
-  late TextEditingController textController2;
-  late TextEditingController textController3;
-
-  late FocusNode textFieldFocusNode1;
-  late FocusNode textFieldFocusNode2;
-  late FocusNode textFieldFocusNode3;
-
-  bool passwordVisibility = false;
+  late SignUpModel _model;
+  final AuthService _authService = AuthService();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    textController3 = TextEditingController();
-
-    textFieldFocusNode1 = FocusNode();
-    textFieldFocusNode2 = FocusNode();
-    textFieldFocusNode3 = FocusNode();
+    _model = SignUpModel();
   }
 
   @override
   void dispose() {
-    textController1.dispose();
-    textController2.dispose();
-    textController3.dispose();
-
-    textFieldFocusNode1.dispose();
-    textFieldFocusNode2.dispose();
-    textFieldFocusNode3.dispose();
+    _model.dispose();
     super.dispose();
   }
 
@@ -64,9 +45,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 children: [
                   const SizedBox(height: 25),
                   InkWell(
-                    onTap: (){
-                    //onTap: () => Navigator.pushNamed(context, '/Login'),
-                    Navigator.pop(context);
+                    onTap: () {
+                      //onTap: () => Navigator.pushNamed(context, '/Login'),
+                      Navigator.pop(context);
                     },
                     child: Container(
                       width: 44,
@@ -95,38 +76,43 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   ),
                   const SizedBox(height: 50),
                   _buildTextField(
-                    controller: textController1,
-                    focusNode: textFieldFocusNode1,
+                    controller: _model.textController1,
+                    focusNode: _model.textFieldFocusNode1,
                     hintText: 'Email Address',
                   ),
                   const SizedBox(height: 25),
                   _buildTextField(
-                    controller: textController2,
-                    focusNode: textFieldFocusNode2,
+                    controller: _model.textController2,
+                    focusNode: _model.textFieldFocusNode2,
                     hintText: 'Username',
                   ),
                   const SizedBox(height: 25),
                   _buildTextField(
-                    controller: textController3,
-                    focusNode: textFieldFocusNode3,
+                    controller: _model.textController3,
+                    focusNode: _model.textFieldFocusNode3,
                     hintText: 'Password',
-                    obscureText: !passwordVisibility,
+                    obscureText: !_model.passwordVisibility,
                     suffixIcon: IconButton(
                       icon: Icon(
-                        passwordVisibility
+                        _model.passwordVisibility
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
                       ),
                       onPressed: () {
                         setState(() {
-                          passwordVisibility = !passwordVisibility;
+                          _model.passwordVisibility =
+                              !_model.passwordVisibility;
                         });
                       },
                     ),
                   ),
                   const SizedBox(height: 28),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await _authService.signup(
+                          email: _model.textController1.text,
+                          password: _model.textController3.text,
+                          username: _model.textController2.text);
                       Navigator.pushNamed(context, '/Login');
                     },
                     style: ElevatedButton.styleFrom(
@@ -139,7 +125,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     ),
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),
                   const SizedBox(height: 50),

@@ -3,18 +3,11 @@ import 'login_widget.dart' show LoginWidget;
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginModel {
-  late FocusNode textFieldFocusNode1;
-  late TextEditingController textController1;
-  late FocusNode textFieldFocusNode2;
-  late TextEditingController textController2;
+  final textFieldFocusNode1 = FocusNode();
+  final textController1 = TextEditingController();
+  final textFieldFocusNode2 = FocusNode();
+  final textController2 = TextEditingController();
   bool passwordVisibility = false; // Already initialized.
-
-  void initialize() {
-    textFieldFocusNode1 = FocusNode();
-    textController1 = TextEditingController();
-    textFieldFocusNode2 = FocusNode();
-    textController2 = TextEditingController();
-  }
 
   void dispose() {
     textFieldFocusNode1.dispose();
