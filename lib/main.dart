@@ -4,6 +4,7 @@ import 'package:grocery_app/cart_widget.dart';
 import 'package:grocery_app/category_widget.dart';
 import 'package:grocery_app/dashboard_widget.dart';
 import 'package:grocery_app/delivering_widget.dart';
+import 'package:grocery_app/domain/models/item.dart';
 import 'package:grocery_app/itemselect_model.dart';
 import 'package:grocery_app/itemselect_widget.dart';
 import 'package:grocery_app/loading_widget.dart';
@@ -35,6 +36,12 @@ class GoCeryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ItemModel itemPlaceholder = ItemModel(
+        itemId: '1',
+        category: 'Snack',
+        imageName: 'honeybutter.png',
+        name: 'honey butter',
+        price: 60);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GoCery',
@@ -49,7 +56,7 @@ class GoCeryApp extends StatelessWidget {
         '/Dashboard': (context) => DashboardWidget(),
         '/Category': (context) => CategoryWidget(),
         '/SelectCat': (context) => SelectCategoryWidget(),
-        '/ItemSelect': (context) => ItemSelectWidget(),
+        '/ItemSelect': (context) => ItemSelectWidget(item: itemPlaceholder),
         '/Cart': (context) => CartWidget(),
         '/Deliver': (context) => OutforDeliveryWidget(),
         '/OrderDelivered': (context) => OrderDeliveredWidget(),
@@ -57,6 +64,13 @@ class GoCeryApp extends StatelessWidget {
         '/Report': (context) => ReportWidget(),
         '/OrderHistory': (context) => OrderHistoryWidget(),
         '/Profile': (context) => ProfileWidget(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/ItemSelect') {
+          final args = settings.arguments as ItemModel;
+          return MaterialPageRoute(
+              builder: (context) => ItemSelectWidget(item: args));
+        }
       },
     );
   }

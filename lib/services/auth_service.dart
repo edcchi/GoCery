@@ -42,4 +42,13 @@ class AuthService {
       print(message);
     }
   }
+
+  Future<String> getUID() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      return uid;
+    } catch (e) {
+      return '';
+    }
+  }
 }

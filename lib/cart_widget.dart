@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_app/cart_widget_listview.dart';
+import 'package:grocery_app/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 import 'cart_model.dart';
@@ -14,6 +16,7 @@ class CartWidget extends StatefulWidget {
 
 class _CartWidgetState extends State<CartWidget> {
   late CartModel _model;
+  double subTotal = 0;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,12 +46,14 @@ class _CartWidgetState extends State<CartWidget> {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.chevron_left_rounded,
-                  color: Colors.black,),
+                  icon: Icon(
+                    Icons.chevron_left_rounded,
+                    color: Colors.black,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                ),  
+                ),
                 Text(
                   "Cart",
                   style: TextStyle(
@@ -158,43 +163,10 @@ class _CartWidgetState extends State<CartWidget> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             SizedBox(height: 10),
-            Row(
-              children: [
-                Image.asset(
-                  'lib/images/honeybutter.png',
-                  height: 50,
-                  width: 50,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    "Honey Butter Chips",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove_outlined),
-                      onPressed: () {
-                        print("Decrease Quantity");
-                      },
-                    ),
-                    Text("1"),
-                    IconButton(
-                      icon: Icon(Icons.add_rounded),
-                      onPressed: () {
-                        print("Increase Quantity");
-                      },
-                    ),
-                  ],
-                ),
-                Text(
-                  "60.00",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
+            const Expanded(
+              child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  child: SizedBox(child: CartWidgetListview())),
             ),
             SizedBox(height: 20),
 
@@ -285,7 +257,8 @@ class _CartWidgetState extends State<CartWidget> {
                 child: Text(
                   "₱00.00 Place Order",
                   style: TextStyle(
-                  color: Colors.white, fontSize: 20,
+                    color: Colors.white,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -295,4 +268,4 @@ class _CartWidgetState extends State<CartWidget> {
       ),
     );
   }
-}     
+}

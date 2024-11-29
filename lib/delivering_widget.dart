@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:grocery_app/services/auth_service.dart';
+import 'package:grocery_app/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 import 'delivering_model.dart';
@@ -14,6 +16,7 @@ class OutforDeliveryWidget extends StatefulWidget {
 
 class _OutforDeliveryWidgetState extends State<OutforDeliveryWidget> {
   late OutforDeliveryModel _model;
+  String? uid;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -21,6 +24,9 @@ class _OutforDeliveryWidgetState extends State<OutforDeliveryWidget> {
   void initState() {
     super.initState();
     _model = OutforDeliveryModel();
+    AuthService().getUID().then((result) {
+      uid = result;
+    });
   }
 
   @override
@@ -115,58 +121,63 @@ class _OutforDeliveryWidgetState extends State<OutforDeliveryWidget> {
                   ),
                 ),
                 Padding(
-  padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),
-  child: ElevatedButton(
-    onPressed: () {
-      Navigator.pushNamed(context, '/OrderDelivered');
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.black, // Button background color
-      foregroundColor: Colors.white, // Text color
-      padding: const EdgeInsets.symmetric(horizontal: 16), // Padding inside the button
-      minimumSize: const Size(200, 60), // Button size
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8), // Border radius
-      ),
-      elevation: 0, // Button shadow
-    ),
-    child: const Text(
-      'Track Order',
-      style: TextStyle(
-        fontFamily: 'Readex Pro', // Font family
-        fontSize: 20, // Font size
-        letterSpacing: 0.0, // Letter spacing
-      ),
-    ),
-  ),
-),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      FirestoreService()
+                          .deleteCartItems(uid!)
+                          .then((result) {});
+                      Navigator.pushNamed(context, '/OrderDelivered');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black, // Button background color
+                      foregroundColor: Colors.white, // Text color
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16), // Padding inside the button
+                      minimumSize: const Size(200, 60), // Button size
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // Border radius
+                      ),
+                      elevation: 0, // Button shadow
+                    ),
+                    child: const Text(
+                      'Track Order',
+                      style: TextStyle(
+                        fontFamily: 'Readex Pro', // Font family
+                        fontSize: 20, // Font size
+                        letterSpacing: 0.0, // Letter spacing
+                      ),
+                    ),
+                  ),
+                ),
 
 // Close Button
-ElevatedButton(
-  onPressed: () {
-    Navigator.pushNamed(context, '/Dashboard');
-  },
-  style: ElevatedButton.styleFrom(
-    backgroundColor: const Color(0xFFD9D9D9), // Button background color
-    foregroundColor: const Color(0xFF3C3D3E), // Text color
-    padding: const EdgeInsets.symmetric(horizontal: 16), // Padding inside the button
-    minimumSize: const Size(200, 60), // Button size
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8), // Border radius
-    ),
-    elevation: 0, // Button shadow
-  ),
-  child: const Text(
-    'Close',
-    style: TextStyle(
-      fontFamily: 'Readex Pro', // Font family
-      fontSize: 20, // Font size
-      letterSpacing: 0.0, // Letter spacing
-      fontWeight: FontWeight.w500,
-    ),
-  ),
-),
-
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/Dashboard');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        const Color(0xFFD9D9D9), // Button background color
+                    foregroundColor: const Color(0xFF3C3D3E), // Text color
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16), // Padding inside the button
+                    minimumSize: const Size(200, 60), // Button size
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8), // Border radius
+                    ),
+                    elevation: 0, // Button shadow
+                  ),
+                  child: const Text(
+                    'Close',
+                    style: TextStyle(
+                      fontFamily: 'Readex Pro', // Font family
+                      fontSize: 20, // Font size
+                      letterSpacing: 0.0, // Letter spacing
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

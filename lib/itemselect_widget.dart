@@ -1,38 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:grocery_app/domain/models/item.dart';
 import 'package:grocery_app/itemselect_widget.dart';
+import 'package:grocery_app/services/auth_service.dart';
+import 'package:grocery_app/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 import 'itemselect_model.dart';
 export 'itemselect_model.dart';
 
 class ItemSelectWidget extends StatefulWidget {
-  const ItemSelectWidget({super.key});
-
+  final ItemModel item;
+  const ItemSelectWidget({super.key, required this.item});
   @override
   State<ItemSelectWidget> createState() => _ItemSelectWidgetState();
 }
 
 class _ItemSelectWidgetState extends State<ItemSelectWidget> {
-  late ItemSelectModel _model;
+  int _quantity = 1;
+  String? uid;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  void incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+  }
+
+  void decrementQuantity() {
+    setState(() {
+      _quantity--;
+    });
+  }
+
+  void showToast(BuildContext context) {
+    const snackBar = SnackBar(
+        content: Text('Added to Cart!'), duration: Duration(seconds: 2));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   void initState() {
     super.initState();
-    _model = ItemSelectModel();
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    AuthService().getUID().then((result) {
+      setState(() {
+        uid = result;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final argItem = ModalRoute.of(context)?.settings.arguments as ItemModel;
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -50,40 +69,41 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                    child: InkWell(
-                                    onTap: () { Navigator.pop(context);
-                                  },
-                      child: Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 4,
-                              color: Color(0x33000000),
-                              offset: Offset(
-                                0,
-                                2,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: Color(0x33000000),
+                                offset: Offset(
+                                  0,
+                                  2,
+                                ),
+                                spreadRadius: 2,
+                              )
+                            ],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.close_rounded,
+                                color: Color(0xFF1E1E1E),
+                                size: 30,
                               ),
-                              spreadRadius: 2,
-                            )
-                          ],
-                          shape: BoxShape.circle,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.close_rounded,
-                              color: Color(0xFF1E1E1E),
-                              size: 30,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     ),
                   ],
                 ),
@@ -108,7 +128,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Image.asset(
-                              'lib/images/honeybutter.png',
+                              'lib/images/${argItem.imageName}',
                               width: 100,
                               height: 100,
                               fit: BoxFit.cover,
@@ -123,7 +143,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              '₱60.00',
+                              '₱${argItem.price}',
                               textAlign: TextAlign.start,
                               style: Theme.of(context)
                                   .textTheme
@@ -148,7 +168,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                               child: Text(
-                                'Honey Butter Chips ',
+                                '${argItem.name} ',
                                 textAlign: TextAlign.start,
                                 style: Theme.of(context)
                                     .textTheme
@@ -167,7 +187,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                       Divider(
                         height: 16,
                         thickness: 2,
-                        color:  const Color.fromARGB(255, 206, 206, 206),
+                        color: const Color.fromARGB(255, 206, 206, 206),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(30, 20, 0, 20),
@@ -270,6 +290,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                               size: 29,
                             ),
                             onPressed: () {
+                              decrementQuantity();
                               print('IconButton pressed ...');
                             },
                           ),
@@ -277,7 +298,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                           child: Text(
-                            '1',
+                            _quantity.toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -307,6 +328,7 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                               size: 29,
                             ),
                             onPressed: () {
+                              incrementQuantity();
                               print('IconButton pressed ...');
                             },
                           ),
@@ -317,6 +339,9 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                       child: ElevatedButton(
                         onPressed: () {
+                          FirestoreService()
+                              .addToCart(argItem, uid!, _quantity);
+                          showToast(context);
                           Navigator.pushNamed(context, '/Cart');
                         },
                         style: ElevatedButton.styleFrom(
@@ -338,9 +363,11 @@ class _ItemSelectWidgetState extends State<ItemSelectWidget> {
                                   ),
                         ),
                         child: Text('Add to Basket',
-                        style: TextStyle(
-                          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600,
-                        )),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            )),
                       ),
                     ),
                   ],
